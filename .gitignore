@@ -1,0 +1,33 @@
+# ------------------------------------------------------------
+# Segredos e configuração real — NUNCA versionar.
+# config.yaml guarda os hashes de senha dos usuários e a chave
+# que assina o cookie de login; .env guarda o usuário e a senha
+# do Oracle. Use config.example.yaml e .env.example como modelo.
+# ------------------------------------------------------------
+config.yaml
+config.yaml.*
+.env
+.env.*
+!.env.example
+*.bak
+*.bak-*
+
+# Documento interno de contexto (dados de infraestrutura)
+prompt_agente_portal_dados.md
+
+# Dados extraídos do ERP (clientes, representantes, relatórios)
+*.csv
+*.xlsx
+*.xls
+
+# Cópias antigas do app (o histórico do git substitui)
+appbkp.py
+
+# Scripts de teste com credencial escrita no código
+teste_conexao.py
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/

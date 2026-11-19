@@ -1,0 +1,66 @@
+# ------------------------------------------------------------
+# MODELO do config.yaml. Copie para "config.yaml" e preencha.
+#
+# O config.yaml de verdade NÃO vai para o repositório (está no
+# .gitignore): ele guarda os hashes de senha dos usuários e a
+# chave que assina o cookie de login.
+#
+# ATENÇÃO: troque TODOS os valores de exemplo antes de usar.
+# O streamlit-authenticator aceita senha em texto puro neste
+# arquivo, então um valor de exemplo esquecido aqui vira uma
+# senha válida.
+# ------------------------------------------------------------
+credentials:
+  usernames:
+    nome.sobrenome:
+      name: "Nome Sobrenome"
+      email: "nome.sobrenome@empresa.com.br"
+      # Hash bcrypt da senha (o README mostra como gerar).
+      password: "COLE_AQUI_O_HASH_BCRYPT"
+    outro.usuario:
+      name: "Outro Usuário"
+      email: "outro.usuario@empresa.com.br"
+      password: "COLE_AQUI_O_HASH_BCRYPT"
+
+cookie:
+  name: "portal_dados_auth"
+  # Chave aleatória que assina o cookie de login (o README mostra
+  # como gerar). Quem tiver esta chave consegue forjar um login.
+  key: "TROQUE_POR_UMA_CHAVE_ALEATORIA"
+  expiry_days: 30
+
+# ------------------------------------------------------------
+# Quais relatórios (chaves de "reports" abaixo) cada usuário vê.
+# Para restringir alguém, remova a chave que ele não deve ver.
+# Para dar acesso a um relatório novo, adicione a chave dele na
+# lista de quem deve ver.
+# ------------------------------------------------------------
+user_reports:
+  nome.sobrenome: [historico, pcp, consumo_mp]
+  outro.usuario: [historico]
+
+# ------------------------------------------------------------
+# Catálogo de relatórios disponíveis no portal. Cada relatório
+# é uma view do Oracle. Para adicionar um relatório novo: crie
+# uma chave aqui apontando para a view e adicione essa chave em
+# "user_reports" para quem deve ter acesso.
+#
+# Chaves opcionais por relatório:
+#   arquivo        -> nome-base dos arquivos baixados
+#   tabela         -> nome da Tabela do Excel dentro do XLSX
+#   datas_sem_hora -> colunas de data que saem só como DD/MM/AAAA
+#                     (use o nome exato do cabeçalho da coluna)
+# ------------------------------------------------------------
+reports:
+  historico:
+    label: "Histórico de Vendas"
+    view: "CUS_VW_HISTORICOS_V2"
+  pcp:
+    label: "PCP - Programação"
+    view: "CUS_VW_HISTORICO_PCP"
+    arquivo: "historicos_pcp"
+    tabela: "Tabela_padrão__CUS_VW_HISTORICO_PCP"
+    datas_sem_hora: [EMISSAO, ENTREGA, EMISSAOOE, DATAFAT]
+  consumo_mp:
+    label: "Relatório Consumo MP"
+    view: "REL_CONSUMO_MP"

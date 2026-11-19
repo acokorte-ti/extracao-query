@@ -1,0 +1,17 @@
+# /etc/systemd/system/portal-dados.service
+[Unit]
+Description=Portal de Dados Streamlit
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/apps/portal-dados
+Environment="LD_LIBRARY_PATH=/home/ubuntu/oracle_instant_client/instantclient_23_26"
+ExecStart=/home/ubuntu/apps/portal-dados/venv/bin/streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=/home/ubuntu/apps/portal-dados/.env
+
+[Install]
+WantedBy=multi-user.target
